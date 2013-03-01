@@ -1,0 +1,38 @@
+/*
+TF2 Duel CSS File
+Ryan Maclachlan
+*/
+
+#headerbg{
+	margin: -20px 0px 15px 0px;
+	padding: 50px;
+}
+
+.infoblock{
+	opacity: .9;
+}
+
+.sidekick{
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	background: #f5f5f5;
+	border-color: #e3e3e3;
+}
+
+.sidekick h5{
+	margin-left: 10px;
+}
+
+#spinner100{
+	display: none;
+}	
+
+.searchPlayers{
+	float: right;
+	margin-top: 5px;
+}
+
+#searchPlayers{
+	margin: 0;
+}
