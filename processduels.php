@@ -9,38 +9,22 @@ $res = mysql_query($query);
 
 //For each duel pull winner and increment their count
 while($duels = mysql_fetch_assoc($res)){
-	if($duels['challenger_score'] >= $duels['victim_score']){
-		$winner = $duels['challenger'];
-		$loser = $duels['victim'];
-	}else{
-		$winner = $duels['victim'];
-		$loser = $duels['challenger'];
-	}
-	//We know winner, so see if they exist
-	if(playerExists($winner)){
-		//they do, so update them with a win
-		if(updatePlayer($winner,1)){echo "Success";}else{echo "Error";}
-	}else{
-		//create them with a win
-		if(createPlayer($winner,1,0)){echo "Success";}else{echo "Error";}
-	}
-	if(playerExists($winner,'players_weekly')){
-		//they do, so update them with a win
-		if(updatePlayer($winner,1,'players_weekly')){}else{echo "Error";}
-	}else{
-		//create them with a win
-		if(createPlayer($winner,1,0,'players_weekly')){}else{echo "Error";}
-	}
-	//Same for loser, so see if they exist
-	if(playerExists($loser)){
-		if(updatePlayer($loser,0)){echo "Success";}else{echo "Error";}
-	}else{
-		if(createPlayer($loser,0,1)){echo "Success";}else{echo "Error";}
-	}
-	if(playerExists($loser,'players_weekly')){
-		if(updatePlayer($loser,0,'players_weekly')){}else{echo "Error";}
-	}else{
-		if(createPlayer($loser,0,1,'players_weekly')){}else{echo "Error";}
+	//Check for ties this time
+	if($duels['challenger_score'] != $duels['victim_score']){
+		//No tie, figure out winner based on score
+		if($duels['challenger_score'] > $duels['victim_score']){
+			$winner = $duels['challenger'];
+			$loser = $duels['victim'];
+		}else{
+			$winner = $duels['victim'];
+			$loser = $duels['challenger'];
+		}
+		//Update Winner with a win
+		$player = new Player($winner);
+		$player->addWin();
+		//Update Loser With A loss
+		$player = new Player($loser);
+		$player->addLoss();
 	}
 	//Then set that duel to processed
 	$q = 'update duels set processed=1 where id='.$duels['id'];

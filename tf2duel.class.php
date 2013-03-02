@@ -61,9 +61,13 @@ class Player
 	}
 	//Database functions
 	function updatePlayer($field,$value){
-		$query = 'update players set "'.$field.'" = "'.$value.'" where steamid = "'.$this->steamid.'"';
-		if(mysql_query($query) or die(mysql_error())){
-		return 1;
+		if($this->exists('players')){
+			$query = 'update players set '.$field.'='.$value.' where steamid = "'.$this->steamid.'"';
+			mysql_query($query) or die(mysql_error());
+		}
+		if($this->exists('players_weekly')){
+			$query = 'update players_weekly set '.$field.'='.$value.' where steamid = "'.$this->steamid.'"';
+			mysql_query($query) or die(mysql_error());
 		}
 	}
 
@@ -77,10 +81,20 @@ class Player
 
 	function updateName(){
 		$steamname = $this->getSteamName();
-		$this->updatePlayer('steamname',$steamname);
+		$this->updatePlayer('steamname','"'.$steamname.'"');
 	}
 
-	function createPlayer($table){
+	function exists($table){
+		$query = 'select id from '.mysql_real_escape_string($table).' where steamid = "'.mysql_real_escape_string($this->steamid).'"';
+		if(mysql_num_rows(mysql_query($query)) >= 1){
+			return 1;
+		}else{
+			$this->create($table);
+			return 1;
+		}
+	}
+
+	function create($table){
 		$steamname = $this->getSteamName();
 		$query = 'insert into '.$table.' (steamid,wins,losses,steamname) values("'.mysql_real_escape_string($this->steamid).'","0","0","'.mysql_real_escape_string($steamname).'")';
 		if(mysql_query($query) or die(mysql_error())){
