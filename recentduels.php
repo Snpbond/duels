@@ -7,8 +7,8 @@ $query = 'select challenger,victim,id from duels where processed=1 order by id d
 $res = mysql_query($query);
 
 while($duel = mysql_fetch_assoc($res)){
-	$challenger = new Steamid($duel['challenger']);
-	$victim = new Steamid($duel['victim']);
+	$challenger = new Player($duel['challenger']);
+	$victim = new Player($duel['victim']);
 ?>
 <ul>
 	<li><a href="#" onclick="$('#popupModal').reveal();duelInfo('<?php echo $duel['id']; ?>','#popupModal','#spinnertop');return false;">

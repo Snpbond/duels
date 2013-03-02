@@ -14,7 +14,7 @@ $queryd = 'select * from duels where challenger = "'.$player['steamid'].'" or vi
 $resq = mysql_query($queryd) or die(mysql_error());
 $duel = mysql_fetch_assoc($resq);
 
-$steamPlayer = new SteamId($player['steamid']);
+$steamPlayer = new Player($player['steamid']);
 
 ?>
 <div class="row">
@@ -56,7 +56,7 @@ $steamPlayer = new SteamId($player['steamid']);
 						if($duels['challenger'] == $player['steamid']){
 							echo $player['steamname'];
 						}else{
-							$challenger = new SteamId($duels['challenger']);
+							$challenger = new Player($duels['challenger']);
 							echo $challenger->getSteamName();
 						}
 					?>
@@ -66,7 +66,7 @@ $steamPlayer = new SteamId($player['steamid']);
 						if($duels['victim'] == $player['steamid']){
 							echo $player['steamname'];
 						}else{
-							$challenger = new SteamId($duels['victim']);
+							$challenger = new Player($duels['victim']);
 							echo $challenger->getSteamName();
 						}
 					?>

@@ -10,9 +10,9 @@ if($_POST['id']){
 
 	$duel = mysql_fetch_assoc($res);
 
-	$challenger = new SteamId($duel['challenger']);
-	$victim = new SteamId($duel['victim']);
-	$winner = new SteamId($duel['winner']);
+	$challenger = new Player($duel['challenger']);
+	$victim = new Player($duel['victim']);
+	$winner = new Player($duel['winner']);
 
 	//echo $challenger->getSteamName() . ' vs ' . $victim->getSteamName();
 

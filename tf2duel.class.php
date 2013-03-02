@@ -1,6 +1,6 @@
 <?php
 
-class SteamID
+class Player
 {
 	//Variables
 	var $arg1;
@@ -59,6 +59,35 @@ class SteamID
 		$this->getCommunityData();
 		return $this->communitydata['personaname'];
 	}
+	//Database functions
+	function updatePlayer($field,$value){
+		$query = 'update players set "'.$field.'" = "'.$value.'" where steamid = "'.$this->steamid.'"';
+		if(mysql_query($query) or die(mysql_error())){
+		return 1;
+		}
+	}
+
+	function addWin(){
+		$this->updatePlayer('wins','wins+1');
+	}
+
+	function addLoss(){
+		$this->updatePlayer('losses','losses+1');
+	}
+
+	function updateName(){
+		$steamname = $this->getSteamName();
+		$this->updatePlayer('steamname',$steamname);
+	}
+
+	function createPlayer($table){
+		$steamname = $this->getSteamName();
+		$query = 'insert into '.$table.' (steamid,wins,losses,steamname) values("'.mysql_real_escape_string($this->steamid).'","0","0","'.mysql_real_escape_string($steamname).'")';
+		if(mysql_query($query) or die(mysql_error())){
+			return 1;
+		}
+	}
+
 
 }
 

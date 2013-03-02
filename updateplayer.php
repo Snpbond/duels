@@ -7,7 +7,7 @@ include('functions.php');
 if($_GET['id']){
 
 	//Create class and get current name
-	$player = new SteamId($_GET['id']);
+	$player = new Player($_GET['id']);
 	$playername = $player->getSteamName();
 
 	//Update in db and return

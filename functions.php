@@ -21,7 +21,7 @@ function playerExists($steamid,$table){
 }
 
 function createPlayer($steamid,$wins,$losses,$table){
-	$player = new SteamID($steamid);
+	$player = new Player($steamid);
 	$playerName = $player->getSteamName();
 	if(!$table){$table='players';}
 	$query = 'insert into '.$table.' (steamid,wins,losses,steamname) values("'.mysql_real_escape_string($steamid).'","'.mysql_real_escape_string($wins).'","'.mysql_real_escape_string($losses).'","'.mysql_real_escape_string($playerName).'")';
@@ -31,7 +31,7 @@ function createPlayer($steamid,$wins,$losses,$table){
 }
 
 function updatePlayer($steamid,$win,$table){
-	$player = new SteamID($steamid);
+	$player = new Player($steamid);
 	$playerName = $player->getSteamName();
 	if(!$table){$table='players';}
 	if($win){
