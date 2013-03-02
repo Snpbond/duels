@@ -3,7 +3,7 @@ require_once('config.php');
 include('functions.php');
 include('tf2duel.class.php');
 
-$weekquery = 'select * from players_weekly order by wins desc limit 1';
+$weekquery = 'select * from players_weekly order by wins desc,losses asc limit 1';
 $weekres = mysql_query($weekquery);
 $topWeek = mysql_fetch_assoc($weekres);
 $topPlayer = new Player($topWeek['steamid']);
