@@ -1,6 +1,5 @@
 <?php
 require_once('config.php');
-include('functions.php');
 include('tf2duel.class.php');
 
 $weekquery = 'select * from players_weekly order by wins desc,losses asc limit 1';
@@ -32,7 +31,7 @@ $topPlayer = new Player($topWeek['steamid']);
 		<script src="js/tf2duel.js"></script>
 		<script src="js/jquery.foundation.reveal.js"></script>
 	</head>
-	<body>
+	<body onload="loadRecentDuels();">
 		<div class="navbar navbar-inverse navbar-fixed-top">
 		  <div class="navbar-inner">
 			<div class="container">
@@ -81,9 +80,10 @@ $topPlayer = new Player($topWeek['steamid']);
 			</div>
 		<div class="container">
 			<div class="row">
-				<div class="span4 sidekick">
-					<h5>Most Recent Duels</h5>
-					<?php include('recentduels.php'); ?>
+				<div id="recentDuels" class="span4 sidekick">
+					<div id="spinnerRecent" style="text-align: center;padding:80px 0px 79px 0px;">
+						<img src="img/loading.gif" alt="Loading..." />
+					</div>
 				</div>
 				<div class="span4 sidekick">
 					<h5>Top Duelers</h5>

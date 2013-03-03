@@ -1,6 +1,7 @@
 //TF2 Duel Jquery file
 
-$(document).ready(function searchPlayer($){
+$(document).ready(
+	function searchPlayer($){
 	$('#searchPlayers').autocomplete({
 		source:'searchplayer.php', 
 		minLength:2,
@@ -32,6 +33,14 @@ function editSite(value,action,id){
 						}
 		});
 };
+
+function loadRecentDuels(){
+	$.get('recentduels.php', function(data){
+		$('#recentDuels').html(data);
+		$('#recentDuels').fadeIn();
+		$('#spinnerRecent').hide();
+	})
+}
 
 function top100(id,spinner){
 	$.get('top100.php', function(data) {
