@@ -1,6 +1,6 @@
+<h5>Most Recent Duels</h5>
 <?php
 require_once('config.php');
-include_once('functions.php');
 include_once('tf2duel.class.php');
 
 $query = 'select challenger,victim,id from (select challenger,victim,id from duels where processed=1 order by id desc limit 5) as tmp order by id asc';
@@ -17,5 +17,4 @@ while($duel = mysql_fetch_assoc($res)){
 </ul>
 <?php
 }
-
 ?>
